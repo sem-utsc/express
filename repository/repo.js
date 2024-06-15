@@ -45,7 +45,6 @@ module.exports = Object.freeze({
             conn = await pool.getConnection();
             const rows = await conn.query("SELECT * from cars");
             // rows: [ {val: 1}, meta: ... ]
-            console.log(rows);
             return rows;
         } finally {
             if (conn) conn.release(); //release to pool
