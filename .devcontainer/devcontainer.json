@@ -30,7 +30,8 @@
     "vscode": {
       "extensions": [
         "mtxr.sqltools",
-        "mtxr.sqltools-driver-mysql"
+        "mtxr.sqltools-driver-mysql",
+        "rangav.vscode-thunder-client"
       ]
     },
     "settings": {

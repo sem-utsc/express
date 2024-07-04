@@ -3,6 +3,7 @@ const db = require('./repository/repoFile')
 const app = express()
 const port = 3000
 
+app.use(express.json());
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
@@ -11,6 +12,12 @@ app.get('/', (req, res) => {
 app.get('/cars', async(req, res) => {
   let carsList = await db.findAll()
   res.status(200).json(carsList)
+})
+
+app.post('/cars', async (req, res) => {
+  let insertData = await db.insert(req.body)
+  console.log(insertData)
+  res.status(201).json({message: "ok"})
 })
 
 app.get('/cars/:carId', async (req, res) => {
