@@ -1,0 +1,115 @@
+openapi: 3.0.4
+info:
+  title: API de Alumnos
+  description: |
+    Plantilla base OpenAPI 3.0 para exponer un recurso tipo "alumno".
+    Llena los campos de esta plantilla con la información de tu API.
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000/
+paths:
+  /api/alumno:
+    get:
+      tags:
+        - alumno
+      summary: Trae la lista de alumnos
+      description: Trae la lista de alumnos registrados en el sistema.
+      operationId: getAlumnoList
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            example: 1
+          description: Pagina de la lista de elementos, cada pagina es de 10
+      responses:
+        '200':
+          description: Lista de alumnos del sistema OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Alumno'
+                
+  /alumno:
+    post:
+      tags:
+        - alumno
+      summary: Crear un nuevo alumno
+      description: Agrega un nuevo alumno al sistema.
+      operationId: crearAlumno
+      requestBody:
+        description: Objeto alumno a crear
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Alumno'
+      responses:
+        '201':
+          description: Alumno creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Alumno'
+        '400':
+          description: Datos inválidos
+        default:
+          description: Error inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Grupo:
+      type: object
+      required:
+        - nombre
+        - cuatri
+      properties:
+        id:
+          type: integer
+          example: 1
+        nombre:
+          type: string
+          example: "4A Ve"
+        cuatri:
+          type: integer
+          example: 4
+        created_at:
+          type: string
+          format: date-time
+          example: "2025-07-05T00:57:48Z"
+    Alumno:
+      type: object
+      required:
+        - nombre
+        - matricula
+        - grupo
+        - created_at
+      properties:
+        nombre:
+          type: string
+          example: Juan Pérez
+        matricula:
+          type: integer
+          example: 20231234
+        grupo:
+          type: string
+          example: "5A"
+        created_at:
+          type: string
+          format: date-time
+          example: "2025-07-05T00:57:48Z"
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+      required:
+        - code
+        - message
