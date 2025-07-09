@@ -9,6 +9,38 @@ servers:
   - url: http://localhost:3000/
 paths:
   /api/alumno:
+    post:
+      tags:
+        - alumno
+      summary: Crear un nuevo alumno
+      description: Agrega un nuevo alumno al sistema.
+      operationId: crearAlumno
+      requestBody:
+        description: Objeto alumno a crear
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlumnoReqBody'
+      responses:
+        '201':
+          description: Alumno creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Alumno'
+        '400':
+          description: Datos inválidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlumnoResError'
+        default:
+          description: Error inesperado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     get:
       tags:
         - alumno
@@ -31,57 +63,36 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Alumno'
-                
-  /alumno:
-    post:
-      tags:
-        - alumno
-      summary: Crear un nuevo alumno
-      description: Agrega un nuevo alumno al sistema.
-      operationId: crearAlumno
-      requestBody:
-        description: Objeto alumno a crear
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Alumno'
-      responses:
-        '201':
-          description: Alumno creado exitosamente
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Alumno'
-        '400':
-          description: Datos inválidos
-        default:
-          description: Error inesperado
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+
 components:
   schemas:
-    Grupo:
+    AlumnoResError:
+      type: object
+      required:
+        - msg
+        - status
+      properties:
+        msg:
+          type: string
+          example: El campo 'nombre' es requerido
+        status:
+          type: string
+          example: ERROR
+    AlumnoReqBody:
       type: object
       required:
         - nombre
-        - cuatri
+        - grupo
       properties:
-        id:
-          type: integer
-          example: 1
         nombre:
           type: string
-          example: "4A Ve"
-        cuatri:
-          type: integer
-          example: 4
-        created_at:
+          example: Juan Pérez
+        grupo:
           type: string
-          format: date-time
-          example: "2025-07-05T00:57:48Z"
+          example: "5A"
+        apellido:
+          type: string
+          example: "Hdz"
     Alumno:
       type: object
       required:
