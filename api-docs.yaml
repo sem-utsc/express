@@ -63,8 +63,68 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Alumno'
-
-components:
+  /api/alumno/{id}:
+    # get:
+    #   summary: Traer un alumno por id
+    #   description: Traer el detalle de un alumno registrado en el sistema.
+    #   operationId: getAlumnoById
+    #   tags:
+    #     - alumno
+    #   parameters:
+    #     - in: path
+    #       name: id
+    #       schema:
+    #         type: integer
+    #       required: true
+    #       description: Numeric ID of the user to get
+    #   responses:
+    #     '200':
+    #       description: alumno del sistema OK
+    #       content:
+    #         application/json:
+    #           schema:
+    #             $ref: '#/components/schemas/Alumno'
+    #     '404':
+    #       description: No se encontro el alumno
+    #       content:
+    #         application/json:
+    #           schema:
+    #             $ref: '#/components/schemas/Error'
+    delete:
+      summary: Eliminar un alumno por id
+      description: Eliminar un alumno registrado en el sistema.
+      operationId: deleteAlumnoById
+      tags:
+        - alumno
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the user to get
+      responses:
+        '200':
+          description: alumno del sistema OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: Alumno eliminado
+        '404':
+          description: No se encontro el alumno
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: No se encontro el alumno
+omponents:
   schemas:
     AlumnoResError:
       type: object
